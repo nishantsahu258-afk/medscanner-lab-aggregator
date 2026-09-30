@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors")
 const searchRouter = require("./routes/search")
-const PORT = 8010;
+const PORT = process.env.PORT || 8010;
 
 app.use(cors({
     origin: "*",
@@ -13,6 +13,6 @@ app.use(cors({
 
 
 app.use("/api",searchRouter)
-app.listen(PORT,()=>{
-    console.log(`Server is running on port ${PORT}`)
-})
+app.listen(PORT, "0.0.0.0", () => {
+    console.log(`Server is running on port ${PORT}`);
+});
