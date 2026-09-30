@@ -1,7 +1,7 @@
 # MedScanner-Lab-Aggregator
 
 ## Project Overview
-MedScanner Lab Aggregator is a full-stack web application designed to help users search for medical lab tests, compare prices from top diagnostic labs, and find the best deals near their location. Built strictly following the assignment requirements, it connects a modern, responsive React frontend with an Express/Node.js backend, correctly processing and ranking test packages by their true final price.
+MedScanner Lab Aggregator is a full-stack web application designed to help users search for medical lab tests, compare prices from available diagnostic providers, and find the best deals near their location. Built strictly following the assignment requirements, it connects a modern, responsive React frontend with an Express/Node.js backend, correctly processing and ranking test packages by their true final price.
 
 ## Features
 - **Pincode Filtering**: Automatically excludes diagnostic providers that do not service the user's specific pincode.
@@ -94,11 +94,11 @@ For `search_query=Lipid Profile` and `pincode=110001`, the backend accurately fi
 ### Edge Cases Handled
 - **Missing or unsupported pincodes:** Returns an empty array, prompting a clean UI empty state.
 - **Malformed search queries:** Trims whitespace and lowercases input on both the query side and the database item side to prevent strict match failures.
-- **Mathematical Precedence:** Corrected the legacy sorting algorithm to accurately calculate `(Offer + Fee) - (Offer + Fee)` directly.
+- **Mathematical Precedence:** The sorting logic compares complete total prices using (offer_price + home_collection_fee).
 
 ## Step 4: The Thinking Question
 
 **Question:** *In the real world, big companies will try to block our servers from scraping their prices. If you had to build a scraper to get live prices from a competitor's website without getting blocked, how would you architect it?*
 
 **Answer:**
-I would architect the scraper using a distributed network of rotating residential proxies (e.g., BrightData or DataImpulse) to obscure the origin of the requests, ensuring IP addresses behave like real, distinct users. I would inject randomized, realistic headers, cookies, and user-agents while adding randomized delays (jitter) between requests to avoid triggering volumetric rate limits. If the site heavily relies on JavaScript obfuscation or CAPTCHAs, I would leverage headless browser automation frameworks (like Playwright/Puppeteer) combined with stealth plugins to mimic human interaction and render the DOM naturally, routing all data into a robust queuing system for processing.
+I would first check for an official API or permitted data source before using scraping. For live price collection, I would use a scheduler and job queue with controlled request rates, caching, and retries so the target site is not hit unnecessarily. Separate workers could collect data from different sources while respecting each site's robots rules, terms, and rate limits. The extracted prices would be normalized and stored with timestamps so the aggregator can serve recent data without scraping on every user request. Monitoring and failure handling would be added to detect blocked requests or source changes and keep the pipeline reliable.
