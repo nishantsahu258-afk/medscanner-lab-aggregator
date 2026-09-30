@@ -3,6 +3,11 @@
 ## Project Overview
 MedScanner Lab Aggregator is a full-stack web application designed to help users search for medical lab tests, compare prices from available diagnostic providers, and find the best deals near their location. Built strictly following the assignment requirements, it connects a modern, responsive React frontend with an Express/Node.js backend, correctly processing and ranking test packages by their true final price.
 
+## Live Demo
+
+- Frontend: https://medscanner-lab-aggregator.vercel.app/
+- Backend API: https://medscanner-lab-aggregator.onrender.com/api/search
+
 ## Features
 - **Pincode Filtering**: Automatically excludes diagnostic providers that do not service the user's specific pincode.
 - **Package Matching**: intelligently surfaces Health Packages if they contain the searched standalone test inside their `included_tests` array.
@@ -42,7 +47,7 @@ To run the application locally, follow these steps:
 
 1. **Clone the repository:**
    ```bash
-   git clone <your-repo-url>
+   git clone https://github.com/nishantsahu258-afk/medscanner-lab-aggregator.git
    cd MedScanner-Lab-Aggregator
    ```
 
