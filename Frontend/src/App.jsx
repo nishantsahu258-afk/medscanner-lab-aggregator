@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 
-const API_BASE = "http://localhost:8010/api";
+const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:8010/api";
 const rupee = (n) => `₹${Number(n).toLocaleString("en-IN")}`;
 
 function Header() {
